@@ -9,25 +9,29 @@ class Game extends Component {
     this.state = { cells: this.props.cells };
   };
 
-  getNeighbours = (cells, i) => {
-    const cols = this.props.cols;
-    const pRow = i - cols;
-    const nRow = i + cols;
+  getAliveNeighboursCount = (cells, rowIndex, colIndex) => {
+    const prevRow = cells[rowIndex - 1];
+    const nextRow = cells[rowIndex + 1];
     return [
-      cells[i - 1], cells[i + 1],
-      cells[pRow - 1], cells[pRow], cells[pRow + 1],
-      cells[nRow - 1], cells[nRow], cells[nRow + 1]
-    ];
+      prevRow && prevRow[colIndex - 1],
+      prevRow && prevRow[colIndex],
+      prevRow && prevRow[colIndex + 1],
+      cells[rowIndex][colIndex - 1],
+      cells[rowIndex][colIndex + 1],
+      nextRow && nextRow[colIndex - 1],
+      nextRow && nextRow[colIndex],
+      nextRow && nextRow[colIndex + 1],
+    ].filter((c) => c).length;
   }
 
   updateBoard = () => {
-    const newCells = this.state.cells.map((cell, i, cells) => {
-      const aliveNeighborsCount = this.getNeighbours(cells, i).filter((c) => c).length;
+    const newCells = this.state.cells.map((row, rIx, cells) => row.map((cell, cIx) => {
+      const aliveNeighborsCount = this.getAliveNeighboursCount(cells, rIx, cIx);
       if ( !cell ) {
         return aliveNeighborsCount === 3 ? 1 : 0;
       }
       return aliveNeighborsCount < 2 || aliveNeighborsCount > 3 ? 0 : 1;
-    });
+    }));
     this.setState({ cells: newCells });
   }
 
@@ -41,19 +45,17 @@ class Game extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          width: this.props.cols * 11,
-          padding: 0,
-          margin: 0
-        }}
-      >
-      {
-        this.state.cells.map((cell, i) => (
-          <Cell key={`cell-${i}`} alive={cell} />
-        ))
-      }
-      </div>
+      <ul className="board">
+        {
+          this.state.cells.map((row, i) => (
+            <li key={`row-${i}`}>
+              <ul className="board-row">
+                { row.map((cell, j) => <Cell key={`cell-${j}`} alive={cell} />) }
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
     );
   }
 };
