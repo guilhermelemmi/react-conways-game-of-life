@@ -9,24 +9,26 @@ class Game extends Component {
     this.state = { cells: this.props.cells };
   };
 
-  updateBoard = () => {
+  getNeighbours = (cells, i) => {
     const cols = this.props.cols;
-    const c = this.state.cells;
-    this.setState({
-      cells: c.map((cell, i) => {
-        const pRow = i - cols;
-        const nRow = i + cols;
-        const aNeighbours = [
-          c[i - 1], c[i + 1],
-          c[pRow - 1], c[pRow], c[pRow + 1],
-          c[nRow - 1], c[nRow], c[nRow + 1]
-        ].filter((c) => c).length;
-        if ( !cell ) {
-          return 8 - aNeighbours === 3 ? 1 : 0; 
-        }
-        return aNeighbours < 2 || aNeighbours > 3 ? 0 : 1;
-      })
+    const pRow = i - cols;
+    const nRow = i + cols;
+    return [
+      cells[i - 1], cells[i + 1],
+      cells[pRow - 1], cells[pRow], cells[pRow + 1],
+      cells[nRow - 1], cells[nRow], cells[nRow + 1]
+    ];
+  }
+
+  updateBoard = () => {
+    const newCells = this.state.cells.map((cell, i, cells) => {
+      const aliveNeighborsCount = this.getNeighbours(cells, i).filter((c) => c).length;
+      if ( !cell ) {
+        return aliveNeighborsCount === 3 ? 1 : 0;
+      }
+      return aliveNeighborsCount < 2 || aliveNeighborsCount > 3 ? 0 : 1;
     });
+    this.setState({ cells: newCells });
   }
 
   componentDidMount() {
