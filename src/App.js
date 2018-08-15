@@ -8,7 +8,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Game running cols={10} cells={[]} />
+        <Game
+          cols={7}
+          cells={[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1]}
+        />
       </div>
     );
   }
