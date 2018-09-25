@@ -36,7 +36,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.updateBoard, 1000);
+    this.timer = setInterval(this.updateBoard, 10);
   }
 
   componentWillUnmount() {

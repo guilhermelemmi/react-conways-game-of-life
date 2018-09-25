@@ -11,8 +11,8 @@
 
 .cell {
   float: left;
-  width: 10px;
-  height: 10px;
+  width: 4px;
+  height: 4px;
   margin: 0;
   padding: 0;
   border: 1px solid black;
