@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Game from './Game.jsx';
+import Game from './components/Game';
 
 function getRandomBoard(rows, cols) {
   const rtn = [];
@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <Game
-          cells={getRandomBoard(200, 200)}
+          board={getRandomBoard(200, 200)}
         />
       </div>
     );

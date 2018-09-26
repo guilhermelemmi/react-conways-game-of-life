@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cell /> should match alive snapshot 1`] = `
+<li
+  className="cell cell-alive"
+/>
+`;
+
+exports[`<Cell /> should match snapshot 1`] = `
+<li
+  className="cell "
+/>
+`;
