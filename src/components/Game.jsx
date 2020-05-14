@@ -11,7 +11,7 @@ class Game extends Component {
   };
 
   updateBoard = () => {
-    this.setState({ board: getNewBoard() });
+    this.setState({ board: getNewBoard(this.state.board) });
   }
 
   componentDidMount() {
