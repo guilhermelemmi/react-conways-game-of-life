@@ -6,7 +6,7 @@
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,6 +23,18 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/registerServiceWorker.js"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }

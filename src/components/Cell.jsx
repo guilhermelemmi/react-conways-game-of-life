@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Cell = ({ alive }) => (
-  <li className={`cell ${alive ? 'cell-alive' : ''}`} />
+  <li className={alive ? 'cell-alive' : ''} />
 );
 
 export default Cell;

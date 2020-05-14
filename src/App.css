@@ -9,13 +9,13 @@
   flex-direction: column;
 }
 
-.cell {
+ul li ul li {
   float: left;
   width: 4px;
   height: 4px;
   margin: 0;
   padding: 0;
- /* border: 1px solid black; */
+  border: 1px solid black;
   border-top: 0;
   border-left: 0;
   position: relative;
