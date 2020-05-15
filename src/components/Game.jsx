@@ -11,14 +11,18 @@ class Game extends Component {
   };
 
   updateBoard = () => {
+    const start = Date.now();
     const nextGeneration = this.state.generation + 1;
     this.setState({
       board: getNextGeneration(this.state.board),
       generation: nextGeneration,
+    }, () => {
+      console.log(`updateBoard: ${Date.now() - start} ms`);
     });
   }
 
   play = () => {
+    const start = Date.now();
     this.timer = setInterval(this.updateBoard, 0);
     this.setState({
       board: getRandomBoard(this.state.rows, this.state.columns),
@@ -26,14 +30,19 @@ class Game extends Component {
       generation: 0,
       startTime: Date.now(),
       endTime: 0,
+    }, () => {
+      console.log(`play: ${Date.now() - start} ms`);
     });
   };
 
   stop = () => {
+    const start = Date.now();
     this.cleanUp();
     this.setState({
       playing: false,
       endTime: Date.now(),
+    }, () => {
+      console.log(`stop: ${Date.now() - start} ms`);
     });
   };
 
@@ -77,7 +86,8 @@ class Game extends Component {
   }
 
   render() {
-    return (
+    const start = Date.now();
+    const game = (
       <div className="game-wrapper">
         <ul className="board">
           {
@@ -104,6 +114,8 @@ class Game extends Component {
         </div>
       </div>
     );
+    console.log(`render: ${Date.now() - start} ms`);
+    return game;
   }
 };
 
