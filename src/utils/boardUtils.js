@@ -13,10 +13,16 @@ const getAliveNeighboursCount = (board, rowIndex, colIndex) => {
   ].filter((c) => c).length;
 };
 
-export const getNewBoard = (board) => board.map((row, rIx, board) => row.map((cell, cIx) => {
+export const getNextGeneration = (board) => board.map((row, rIx, board) => row.map((cell, cIx) => {
   const aliveNeighborsCount = getAliveNeighboursCount(board, rIx, cIx);
-  if ( !cell ) {
+  if (!cell) {
     return aliveNeighborsCount === 3 ? 1 : 0;
   }
   return aliveNeighborsCount < 2 || aliveNeighborsCount > 3 ? 0 : 1;
 }));
+
+export const getRandomBoard = (rows, cols) => (
+  Array.from({length: rows}, () => (
+    Array.from({length: cols}, () => Math.round(Math.random()))
+  ))
+);
