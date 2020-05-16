@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Game rows={100} columns={100} />
+        <Game rows={100} columns={100} maxGeneration={5}/>
       </div>
     );
   }

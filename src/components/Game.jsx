@@ -7,18 +7,22 @@ class Game extends Component {
 
   constructor(props) {
     super(props);
-    this.state = this.getInitialState(props.rows, props.columns);
+    this.state = this.getInitialState(props.rows, props.columns, props.maxGeneration);
   };
 
   updateBoard = () => {
-    const start = Date.now();
-    const nextGeneration = this.state.generation + 1;
-    this.setState({
-      board: getNextGeneration(this.state.board),
-      generation: nextGeneration,
-    }, () => {
-      console.log(`updateBoard: ${Date.now() - start} ms`);
-    });
+    if (this.state.generation < this.state.maxGeneration) {
+      const start = Date.now();
+      const nextGeneration = this.state.generation + 1;
+      this.setState({
+        board: getNextGeneration(this.state.board),
+        generation: nextGeneration,
+      }, () => {
+        console.log(`updateBoard: ${Date.now() - start} ms`);
+      });
+    } else {
+      this.stop();
+    }
   }
 
   play = () => {
@@ -66,13 +70,18 @@ class Game extends Component {
     this.setState({ columns: e.target.value });
   }
 
+  handleMaxGenerationsChange = (e) => {
+    this.setState({ maxGeneration: e.target.value });
+  }
+
   handleReset = () => {
     this.cleanUp();
-    this.setState(this.getInitialState(this.state.rows, this.state.columns));
+    this.setState(this.getInitialState(this.state.rows, this.state.columns, this.state.maxGeneration));
   };
 
-  getInitialState = (rows, columns) => ({
+  getInitialState = (rows, columns, maxGeneration) => ({
     board: getRandomBoard(rows, columns),
+    maxGeneration,
     playing: false,
     generation: 0,
     startTime: 0,
@@ -102,6 +111,7 @@ class Game extends Component {
           <div className="controls">
             Rows: <input type="text" name="rows" value={this.state.rows} onChange={this.handleRowsChange} /> <br />
             Columns: <input type="text" name="columns" value={this.state.columns} onChange={this.handleColumnsChange} /> <br />
+            Max Generation: <input type="text" name="maxGeneration" value={this.state.maxGeneration} onChange={this.handleMaxGenerationsChange} /> <br />
             <input type="button" value={this.state.playing ? 'Stop' : 'Play'} onClick={this.handlePlayChange} />
             <input type="button" value='Reset' onClick={this.handleReset} />
           </div>
