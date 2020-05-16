@@ -89,17 +89,15 @@ class Game extends Component {
     const start = Date.now();
     const game = (
       <div className="game-wrapper">
-        <ul className="board">
+        <div className="board">
           {
             this.state.board.map((row, i) => (
-              <li key={`row-${i}`}>
-                <ul className="board-row">
-                  { row.map((cell, j) => <Cell key={`cell-${j}`} alive={cell} />) }
-                </ul>
-              </li>
+              <div key={`row-${i}`} className="board-row">
+                { row.map((cell, j) => <Cell key={`cell-${j}`} alive={cell} />) }
+              </div>
             ))
           }
-        </ul>
+        </div>
         <div className="control-panel">
           <div className="controls">
             Rows: <input type="text" name="rows" value={this.state.rows} onChange={this.handleRowsChange} /> <br />

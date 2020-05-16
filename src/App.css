@@ -24,7 +24,7 @@
   margin-top: 30px; 
 }
 
-.board li ul li {
+.cell {
   float: left;
   width: 4px;
   height: 4px;

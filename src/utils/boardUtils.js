@@ -2,16 +2,14 @@ const getAliveNeighboursCount = (board, rowIndex, colIndex) => {
   const start = Date.now();
   const prevRow = board[rowIndex - 1];
   const nextRow = board[rowIndex + 1];
-  const count = [
-    prevRow && prevRow[colIndex - 1],
-    prevRow && prevRow[colIndex],
-    prevRow && prevRow[colIndex + 1],
-    board[rowIndex][colIndex - 1],
-    board[rowIndex][colIndex + 1],
-    nextRow && nextRow[colIndex - 1],
-    nextRow && nextRow[colIndex],
-    nextRow && nextRow[colIndex + 1],
-  ].filter((c) => c).length;
+  let count = 0;
+  if (prevRow) {
+     count += [prevRow[colIndex - 1], prevRow[colIndex], prevRow[colIndex + 1]].filter((c) => c).length;
+  }
+  count += [board[rowIndex][colIndex - 1], board[rowIndex][colIndex + 1]].filter((c) => c).length;
+  if (nextRow) {
+     count += [nextRow[colIndex - 1], nextRow[colIndex], nextRow[colIndex + 1]].filter((c) => c).length;
+  }
   console.log(`getAliveNeighboursCount: ${Date.now() - start} ms`);
   return count;
 };
